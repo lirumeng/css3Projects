@@ -43,8 +43,60 @@ function addPhotos(){
 }
 addPhotos();
 
+// 6.计算左右分区的范围 {left:{x:[min,max],y:[]}, right:{x:[],y:[]}}
+function range(){
+	var range = {left:{x:[],y:[]}, right:{x:[],y:[]}};
+
+	var wrap = {
+		w:g('#wrap').clientWidth,
+		h:g('#wrap').clientHeight
+	}
+	var photo = {
+		w:g('.photo')[0].clientWidth,
+		h:g('.photo')[0].clientHeight
+	}
+	range.wrap = wrap;
+	range.photo = photo;
+
+	range.left.x = [0-photo.w, wrap.w/2-photo.w/2];
+	range.left.y = [0-photo.h, wrap.h];
+	range.right.x = [wrap.w/2 + photo.w/2, wrap.w + photo.w];
+	range.right.y = range.left.y;
+
+	return range;
+}
+
 // 5.排序海报
 function rsort(n){
+	var _photo = g('.photo');
+	var photos = [];
+	for(s = 0;s<_photo.length;s++){
+		_photo[s].className = _photo[s].className.replace(/\s*photo-center\s*/,' ');
+		photos.push(_photo[s]);
+	}
+
 	var photo_center = g('#photo-'+n);
 	photo_center.className += ' photo-center';
+	photo_center = photos.splice(n,1)[0];
+
+	var photos_left = photos.splice(0,Math.ceil(photos.length/2));
+	var photos_right = photos;
+
+	var ranges = range();
+	for(s in photos_left){
+		var photo = photos_left[s];
+		photo.style.left = random(ranges.left.x) + 'px';
+		photo.style.top = random(ranges.left.y) + 'px';
+
+		photo.style['-webkit-transform'] = 'rotate('+random([-150,150])+'deg)';
+	}
+	for(s in photos_right){
+		var photo = photos_right[s];
+		photo.style.right = random(ranges.right.x) + 'px';
+		photo.style.top = random(ranges.right.y) + 'px';
+
+		photo.style['-webkit-transform'] = 'rotate('+random([-150,150])+'deg)';
+	}
 }
+
+
