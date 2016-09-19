@@ -20,7 +20,7 @@ Data数据：data.js 非必须，助于理解
 ##前端界面
 div.photo 负责位移，旋转（平面xy旋转）
 div.photo-wrap 负责3D翻转（正反面切换）
-# 3D相关设置
+## 3D相关设置
 ### .photo-wrap
 -webkit-backface-visibility:hidden;  当元素不面向屏幕时隐藏
 -webkit-transform-style: preserve-3d; 支持子元素的3D效果
