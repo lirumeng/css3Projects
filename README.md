@@ -62,3 +62,6 @@ x > wrap.width/2 + photo.width/2
 x < wrap.width + photo.width
 y > 0 - photo.height
 y < wrap.height
+
+## 控制条输出
+### 

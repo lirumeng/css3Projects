@@ -1,10 +1,16 @@
 // 1.翻面控制
 function turn(elem){
 	var clsN = elem.className;
+	var n = elem.id.split('-')[1];
+	if(/photo-center/.test(clsN)){
+		return rsort(n);
+	}
 	if(/photo-front/.test(clsN)){
 		clsN = clsN.replace(/photo-front/,'photo-back');
+		g('#nav-'+n).className += 'i-back';
 	}else{
 		clsN = clsN.replace(/photo-back/,'photo-front');
+		g('#nav'+n).className = g('#nav-'+n).className.replace(/\s*i-back\s*/,' ');
 	}
 	return elem.className = clsN;
 }
@@ -30,13 +36,20 @@ var data = data;
 function addPhotos(){
 	var template = g('#wrap').innerHTML;
 	var html = [];
+
+	// 7.输出控制按钮，每一控制按钮，都对应一个海报
+	var nav = [];
 	for(s in data){
 		var _html = template.replace('{{index}}',s)
 							.replace('{{img}}',data[s].img)
 							.replace('{{caption}}',data[s].caption)
 							.replace('{{desc}}',data[s].desc);
 		html.push(_html);
+
+		nav.push('<span id="nav-'+ s +'" class="i" onclick="turn(g(\'#photo-'+ s +'\'))">&nbsp;</span>');
 	}
+	html.push('<div class="nav">'+ nav.join('') +'</div>')
+
 	g('#wrap').innerHTML = html.join('');
 
 	rsort(random([0,data.length]));
@@ -71,7 +84,16 @@ function rsort(n){
 	var _photo = g('.photo');
 	var photos = [];
 	for(s = 0;s<_photo.length;s++){
+
 		_photo[s].className = _photo[s].className.replace(/\s*photo-center\s*/,' ');
+		_photo[s].className = _photo[s].className.replace(/\s*photo-front\s*/,' ');
+		_photo[s].className = _photo[s].className.replace(/\s*photo-back\s*/,' ');
+
+		_photo[s].className += ' photo-front';
+		_photo[s].style.left = '';
+		_photo[s].style.top = '';
+		_photo[s].style['transform'] = _photo[s].style['-webkit-transform'] = 'rotate(0deg) scale(1.3)';
+
 		photos.push(_photo[s]);
 	}
 
@@ -79,6 +101,7 @@ function rsort(n){
 	photo_center.className += ' photo-center';
 	photo_center = photos.splice(n,1)[0];
 
+	// 把海报分为左右区域两个部分
 	var photos_left = photos.splice(0,Math.ceil(photos.length/2));
 	var photos_right = photos;
 
@@ -88,15 +111,23 @@ function rsort(n){
 		photo.style.left = random(ranges.left.x) + 'px';
 		photo.style.top = random(ranges.left.y) + 'px';
 
-		photo.style['-webkit-transform'] = 'rotate('+random([-150,150])+'deg)';
+		photo.style['transform'] = photo.style['-webkit-transform'] = 'rotate('+random([-150,150])+'deg) scale(1)';
 	}
 	for(s in photos_right){
 		var photo = photos_right[s];
-		photo.style.right = random(ranges.right.x) + 'px';
+		photo.style.left = random(ranges.right.x) + 'px';
 		photo.style.top = random(ranges.right.y) + 'px';
 
-		photo.style['-webkit-transform'] = 'rotate('+random([-150,150])+'deg)';
+		photo.style['transform'] = photo.style['-webkit-transform'] = 'rotate('+random([-150,150])+'deg) scale(1)';
 	}
+
+	//控制按钮处理
+	var navs = g('.i');
+	for(s in navs){
+		navs[s].className = navs[s].className.replace(/\s*i-current\s*/,' ');
+		navs[s].className = navs[s].className.replace(/\s*i-back\s*/,' ')
+	}
+	g('#nav-'+ n).className += ' i-current';
 }
 
 
