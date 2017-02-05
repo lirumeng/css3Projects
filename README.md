@@ -175,7 +175,39 @@ body {
 ```
 对于复杂布局，CSS变量的这种相互传递和直接引用特性可以简化我们的代码和实现成本，尤其和动态布局在一起的时候，无论是CSS的响应式后者是JS驱动的布局变化。
 
+## [CSS书写模式](./demos/writing-mode.html)
+`writing-mode`各浏览器兼容性如下:
+![image](./imgs/writing-mode.png)
+
+### writing-mode属性值
+它有以下五个可选值：
+* `horizontal-tb` 默认
+Content flows horizontally from left to right, vertically from top to bottom. The next horizontal line is positioned below the previous line.
+* `vertical-rl`
+Content flows vertically from top to bottom, horizontally from right to left. The next vertical line is positioned to the left of the previous line.
+* `vertical-lr`
+Content flows vertically from top to bottom, horizontally from left to right. The next vertical line is positioned to the right of the previous line.
+* `sideways-rl`
+Content flows vertically from top to bottom and all the glyphs, even those in vertical scripts, are set sideways toward the right.
+* `sideways-lr`
+Content flows vertically from top to bottom and all the glyphs, even those in vertical scripts, are set sideways toward the left.
+
+废弃的属性值
+* `lr` 
+Deprecated except for SVG1 documents. For CSS, use horizontal-tb.
+* `lr-tb`
+Deprecated except for SVG1 documents. For CSS, use horizontal-tb.
+* `rl` 
+Deprecated except for SVG1 documents. For CSS, use horizontal-tb.
+* `tb` 
+Deprecated except for SVG1 documents. For CSS, use vertical-lr.
+* `tb-rl` 
+Deprecated except for SVG1 documents. For CSS, use vertical-rl.
+
+![image](./imgs/writing-mode-actual-result.png)
+
 
 参考资料：
 
 * [了解CSS/CSS3原生变量var](http://www.zhangxinxu.com/wordpress/2016/11/css-css3-variables-var/)
+* [writing-mode - CSS|MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode)
