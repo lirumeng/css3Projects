@@ -33,7 +33,7 @@ calc(expression)
 
 `expression` 一个数学表达式，结果将采用运算后的返回值
 
-## css变量var
+## 原生的CSS变量
 悲催的是，IE11都不兼容/(ㄒoㄒ)/~~
 ![image](./imgs/css_var.png)
 
@@ -72,10 +72,90 @@ div { --color: green; }
 <p>我的紫色继承于根元素</p>
 <div>我的绿色来自直接设置</div>
 <div id='alert'>
-  ID选择器权重更高，因此阿拉是红色！
-  <p>我也是红色，占了继承的光</p>
+  ID选择器权重更高，因此是红色！
+  <p>由于继承，我也是红色</p>
 </div>
 ```
 上面这个例子我们可以获得这些信息：
 * 变量也是跟着CSS选择器走的，如果变量所在的选择器和使用变量的元素没有交集，是没有效果的。例如`#alert`定义的变量，只有`id`为`alert`的元素才能享有。如果你想变量全局使用，则你可以设置在`:root`选择器上；
 * 当存在多个同样名称的变量时候，变量的覆盖规则由CSS选择器的权重决定的，但并无`!important`这种用法，因为没有必要，`!important`设计初衷是干掉JS的`style`设置，但对于变量的定义则没有这样的需求。
+
+#### CSS属性名不可以走变量
+
+#### CSS变量不支持同时多个声明
+
+#### CSS变量使用完整语法
+CSS变量使用的完整语法为：`var( [, ]? )`，用中文表示就是：`var( <自定义属性名> [, <默认值 ]? )`，
+意思就是，如果我们使用的变量没有定义（注意，仅限于没有定义），则使用后面的值作为元素的属性值。举个例子：
+```css
+.box {
+  --1: #369;
+}
+body {
+  background-color: var(--1, #cd0000);
+}
+```
+则此时的背景色是#cd0000：
+![image](./imgs/2.png)
+
+#### CSS变量不合法的缺省特性
+下面这个例子：
+```css
+body {
+  --color: 20px;
+  background-color: #369;
+  background-color: var(--color, #cd0000);
+}
+```
+此时`<body>`的背景色是？答案是transparent
+这是CSS变量非常有意思的一个点，对于CSS变量，只要语法是正确的，就算变量里面的值是个乱七八糟的东西，也是会作为正常的声明解析，如果发现变量值是不合法的，例如上面背景色显然不能是20px，则使用背景色的缺省值，也就是默认值代替，于是，上面CSS等同于：
+```css
+body {
+--color: 20px;
+background-color: #369;
+background-color: transparent;
+}
+```
+千万不能想当然得认为等同于`background-color:20px`，这也是为什么上面要强调CSS默认值的使用仅限于变量未定义的情况，并不包括变量不合法。
+
+#### CSS变量的空格尾随特性
+如下面这个例子:
+```css
+body {
+  --size: 20;   
+  font-size: var(--size)px;
+}
+```
+此时`<body>`的`font-size`大小是多少？
+如果你以为是`20px`就太天真了，实际上，此处`font-size:var(--size)px`等同于`font-size:20 px`，注意，`20`后面有个空格，所以，这里的`font-size`使用的是`<body>`元素默认的大小。因此，就不要妄图取消就使用一个数值来贯穿全场，还是使用稳妥的做法：
+```css
+body {
+  --size: 20px;   
+  font-size: var(--size);
+}
+```
+或者使用`CSS3 calc()`计算：
+```css
+body {
+  --size: 20;   
+  font-size: calc(var(--size) * 1px);
+}
+```
+此时，`<body>`的`font-size`大小才是`20px`
+
+#### CSS变量的相互传递特性
+就是说，我们在CSS变量定义的时候可以直接引入其他变量给自己使用，例如：
+```css
+body {
+  --green: #4CAF50;   
+  --backgroundColor: var(--green);
+}
+```
+或者更复杂的使用CSS3 `calc()`计算，例如：
+```css
+body {
+  --columns: 4;
+  --margins: calc(24px / var(--columns));
+}
+```
+对于复杂布局，CSS变量的这种相互传递和直接引用特性可以简化我们的代码和实现成本，尤其和动态布局在一起的时候，无论是CSS的响应式后者是JS驱动的布局变化。
