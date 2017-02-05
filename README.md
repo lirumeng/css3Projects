@@ -1,6 +1,6 @@
 # css3基础知识
 
-总结平时项目中用到的css3基础知识
+总结平时遇到的css3基础知识
 
 ## flex弹性布局
 见[flex-layout](https://github.com/lirumeng/flex-layout)
@@ -25,9 +25,14 @@
 * 任何长度值都可以使用calc()函数进行计算
 * `calc()`函数支持 `"+"`, `"-"`, `"*"`, `"/"` 运算
 * `calc()`函数使用标准的数学运算优先级规则
+
 ### CSS 语法
 ```css
 calc(expression)
 ```
 
 `expression` 一个数学表达式，结果将采用运算后的返回值
+
+## css变量var
+悲催的是，IE11都不兼容/(ㄒoㄒ)/~~
+![image](./imgs/css_var.png)
