@@ -90,6 +90,7 @@ div { --color: green; }
 * 当存在多个同样名称的变量时候，变量的覆盖规则由CSS选择器的权重决定的，但并无`!important`这种用法，因为没有必要，`!important`设计初衷是干掉JS的`style`设置，但对于变量的定义则没有这样的需求。
 
 #### CSS属性名不可以走变量
+下面的写法是无效的：
 ```css
 body {
 	--bc: background-color;
@@ -122,7 +123,7 @@ body {
   background-color: var(--color, #cd0000);
 }
 ```
-此时`<body>`的背景色是？答案是transparent
+此时`<body>`的背景色是？答案是transparent。
 这是CSS变量非常有意思的一个点，对于CSS变量，只要语法是正确的，就算变量里面的值是个乱七八糟的东西，也是会作为正常的声明解析，如果发现变量值是不合法的，例如上面背景色显然不能是20px，则使用背景色的缺省值，也就是默认值代替，于是，上面CSS等同于：
 ```css
 body {
@@ -149,7 +150,7 @@ body {
   font-size: var(--size);
 }
 ```
-或者使用`CSS3 calc()`计算：
+或者使用CSS3`calc()`计算：
 ```css
 body {
   --size: 20;   
@@ -182,26 +183,36 @@ body {
 ### writing-mode属性值
 它有以下五个可选值：
 * `horizontal-tb` 默认
+
 Content flows horizontally from left to right, vertically from top to bottom. The next horizontal line is positioned below the previous line.
 * `vertical-rl`
+
 Content flows vertically from top to bottom, horizontally from right to left. The next vertical line is positioned to the left of the previous line.
 * `vertical-lr`
+
 Content flows vertically from top to bottom, horizontally from left to right. The next vertical line is positioned to the right of the previous line.
 * `sideways-rl`
+
 Content flows vertically from top to bottom and all the glyphs, even those in vertical scripts, are set sideways toward the right.
 * `sideways-lr`
+
 Content flows vertically from top to bottom and all the glyphs, even those in vertical scripts, are set sideways toward the left.
 
 废弃的属性值
 * `lr` 
+
 Deprecated except for SVG1 documents. For CSS, use horizontal-tb.
 * `lr-tb`
+
 Deprecated except for SVG1 documents. For CSS, use horizontal-tb.
 * `rl` 
+
 Deprecated except for SVG1 documents. For CSS, use horizontal-tb.
 * `tb` 
+
 Deprecated except for SVG1 documents. For CSS, use vertical-lr.
 * `tb-rl` 
+
 Deprecated except for SVG1 documents. For CSS, use vertical-rl.
 
 ![image](./imgs/writing-mode-actual-result.png)
