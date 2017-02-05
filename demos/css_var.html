@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css var属性</title>
+	<style>
+		:root{
+			--color: blue;
+			--fontSize1: 20px;
+			--fontSize2: 40px;
+			--fontFamily: '楷体';
+			--bgColor1: #ddd;
+			--bgColor2: #fff;
+			--粉色: pink;  /*可以使用中文命名*/
+		}
+		body{
+			background: var(--bgColor1);
+			color: var(--color);
+		}
+		#cont {
+			background: var(--bgColor2);
+			color: --green;
+		}
+		#cont p:nth-child(2){
+			color: var(--粉色);
+			font-size: var(--fontSize1);
+			font-family: var(--fontFamily);
+			--green: green;
+			background: var(--green);
+		}
+		#cont p:nth-child(3){
+			font-size: var(--fontSize2);
+			font-family: var(--fontFamily);
+			--orange: orange;
+			background: var(--orange);
+		}
+	</style>
+</head>
+<body>
+	<div id="cont">
+		<p>我是一段文字</p>
+		<p>我是一段文字</p>
+		<p>我是一段文字</p>
+		<p>我是一段文字</p>
+		<p>我是一段文字</p>
+	</div>
+</body>
+</html>
