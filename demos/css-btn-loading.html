@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>按钮点击后 CSS 载入效果</title>
+    <style media="screen">
+      body *{
+        box-sizing: border-box;
+      }
+
+      .btn,
+      .btn::before{
+        position: absolute;
+        width: 200px;
+        height:40px;
+        line-height: 40px;
+        text-align: center;
+        border-radius: 4px;
+        color: #fff;
+      }
+
+      .btn{
+        background-color: #5ad;
+        cursor: pointer;
+      }
+      .btn::before{
+        content: "loading";
+        z-index: 2;
+        top:0;
+        left:0;
+        text-shadow: rgb(100,0,0) 0 0 3px;
+        background:-webkit-linear-gradient(45deg,#fc0 0%,#fc0 20%,#fa0 20%, #fa0 45%,#fc0 45%,#fc0 70%,#fa0 70%, #fa0 95%,#fc0 95%,#fc0 100%);
+        background: -ms-linear-gradient(45deg,#fc0 0%,#fc0 20%,#fa0 20%, #fa0 45%,#fc0 45%,#fc0 70%,#fa0 70%, #fa0 95%,#fc0 95%,#fc0 100%);
+        background: linear-gradient(45deg,#fc0 0%,#fc0 20%,#fa0 20%, #fa0 45%,#fc0 45%,#fc0 70%,#fa0 70%, #fa0 95%,#fc0 95%,#fc0 100%);
+        background-size:30px 30px;
+        background-position:0 0;
+        animation: click 1s infinite linear;
+        display: none;
+      }
+      .btn.click::before{
+        display:block;
+      }
+      @keyframes click {
+        0%{ background-position: 0 0;}
+        100%{ background-position: 30px 0;}
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="btn" id="btn">
+      点击
+    </div>
+  </body>
+
+  <script src="./libs/jquery.min.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    var timer;
+    $('#btn').click(function(){
+      var $this = $(this);
+      $this.addClass('click');
+      clearTimeout(timer);
+      timer = setTimeout(function(){
+        $this.removeClass('click');
+      }, 3000);
+    });
+  </script>
+</html>
