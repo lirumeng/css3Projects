@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style>
+    path {
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10;
+      stroke-width: 10;
+      stroke-dasharray: 339 1017;
+      fill: none;
+    }
+
+    #animate1 {
+      animation: deform 4s ease infinite, animate1 2s linear infinite;
+      stroke: #ffb850;
+    }
+
+    #animate2 {
+      animation: deform 4s ease infinite, animate2 2s linear infinite;
+      stroke: #ff7e5d;
+    }
+
+    #animate3 {
+      animation: deform 4s ease infinite, animate3 2s linear infinite;
+      stroke: #8cd2a4;
+    }
+
+    #animate4 {
+      animation: deform 4s ease infinite, animate4 2s linear infinite;
+      stroke: #62adea;
+    }
+
+    @keyframes deform {
+      0% {
+        d: path('M400,84c119.3,0,216,96.7,216,216c0,0,0,0,0,0c0,118-98,216-216,216c-119.3,0-216-96.7-216-216C184,182,280.7,84,400,84');
+      }
+      15% {
+        d: path('M400.2,52c0,0,0,0,218,378c0,0,0,0,0,0c0,0,0,0-437,0c0,0,0,0,0,0C182,430,400.2,52,400.2,52');
+      }
+      25% {
+        d: path('M400.2,52c0,0,0,0,218,378c0,0,0,0,0,0c0,0,0,0-437,0c0,0,0,0,0,0C182,430,400.2,52,400.2,52');
+      }
+      40% {
+        d: path('M353,532c0,0,0-459.6,0-461c0,0,0,0,0,0c0-1,95.8,0,98,0c1,0,1,460,0,461C451,533,353,532,353,532');
+      }
+      50% {
+        d: path('M353,532c0,0,0-459.6,0-461c0,0,0,0,0,0c0-1,95.8,0,98,0c1,0,1,460,0,461C451,533,353,532,353,532');
+      }
+      65% {
+        d: path('M264.3,485.2c0,0 0,0,-85.3-258.2c0,0 0,0,220.1-160c0,0 0,0,217,161c0,0 0,0,-79,258.2C536,487,264.3,485.2,264.3,485.2');
+      }
+      75% {
+        d: path('M264.3,485.2c0,0 0,0,-85.3-258.2c0,0 0,0,220.1-160c0,0 0,0,217,161c0,0 0,0,-79,258.2C536,487,264.3,485.2,264.3,485.2');
+      }
+      90% {
+        d: path('M400,84c119.3,0,216,96.7,216,216c0,118-98,216-216,216c0,0,0,0,0,0c-119.3,0-216-96.7-216-216C184,182,280.7,84,400,84');
+      }
+      100% {
+        d: path('M400,84c119.3,0,216,96.7,216,216c0,118-98,216-216,216c0,0,0,0,0,0c-119.3,0-216-96.7-216-216C184,182,280.7,84,400,84');
+      }
+    }
+
+    @keyframes animate1 {
+      0% {
+        stroke-dashoffset: 0
+      }
+      100% {
+        stroke-dashoffset: 1356
+      }
+    }
+
+    @keyframes animate2 {
+      0% {
+        stroke-dashoffset: 339
+      }
+      100% {
+        stroke-dashoffset: 1695
+      }
+    }
+
+    @keyframes animate3 {
+      0% {
+        stroke-dashoffset: 678
+      }
+      100% {
+        stroke-dashoffset: 2034
+      }
+    }
+
+    @keyframes animate4 {
+      0% {
+        stroke-dashoffset: 1017
+      }
+      100% {
+        stroke-dashoffset: 2373
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="600">
+    <path id="animate1" />
+    <path id="animate2" />
+    <path id="animate3"/>
+    <path id="animate4"/>
+  </svg>
+</body>
+
+</html>
+<!-- 学习资源来自：https://codepen.io/yangyangbeiqiu/pen/ayNGdW -->
