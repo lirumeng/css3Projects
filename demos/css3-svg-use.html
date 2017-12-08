@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style></style>
+</head>
+<body>
+  <svg width="580" height="400" xmlns="http://www.w3.org/2000/svg">
+     <defs>
+       <g>
+        <path id="petal1" d="m1.4975,77.502497l76.999997,-76.999997l76.999997,76.999997l-76.999997,76.999997l-76.999997,-76.999997z" fill="rgba(175,116,201,.5)"/>
+       </g>
+     </defs>
+     <use xlink:href="#petal1" id="leaf" style="display:none;"/>
+    </svg>
+  <script src="./libs/jquery.min.js"></script>
+  <script>
+    var arr = (new Array(36)).fill(0).map((n, i) => i + 1);
+    var $svg = $("svg");
+    var $clone = $svg.find("#leaf");
+    var cssRules = document.styleSheets[0];
+    arr.forEach(function(n, i) {
+      var $cloneItem = $clone.clone().show();
+      $cloneItem.attr("id", "leaf" + n);
+      $svg.append($cloneItem);
+      cssRules.insertRule("@keyframes leaf" + n + "{0% {opacity: 0;transform: rotate(" + i * 10 + "deg);transform-origin: 0 50%;}100% {transform: rotate(" + n * 10 + "deg);transform-origin: 0 50%;}}");
+      $svg.find("#leaf" + n + "").css({
+        "animation": "leaf" + n + " ease 0.1s both " + i * 0.1 + "s"
+      });
+    });
+  </script>
+
+</body>
+
+</html>
